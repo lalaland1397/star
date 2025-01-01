@@ -334,7 +334,7 @@ header .badges .badge {
 .notice .notice-line .bg-right {
   width: 50%;
   height: 100%;
-  background-color: #f6f5ef;
+  background-color: white;
   position: absolute;
   top: 0;
   right: 0;
