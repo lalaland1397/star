@@ -1,0 +1,58 @@
+function callKoscomApi(lang) {
+	
+	var params = {
+		auth_key: 'ZtM9BPah5S8ce4lt5NEdrBKys7VUtl',
+		code: '086790',
+		gubun : lang
+	}
+	
+	$.ajax({
+		type : 'get',
+		url : 'https://asp.koscom.co.kr/listservice/getStockBasic',
+		dataType : 'json',
+		data: params,
+		success : function(response){
+			if(response){
+				var result = response.results;
+				if(result.length > 0){
+					var data = result[0];
+					var koscomShareInfoClass = '';
+					
+					//종목명
+					var koscomShareSub = data['F16002'];
+					//현재가
+					var koscomSharePrice = data['F15001'];
+					//전일대비
+					var koscomShareInfo = data['F15472'];
+					//등락율
+					var koscomShareInfoPer = data['F15004'];
+					//등락구분
+					var koscomShareInfoType = data['F15006'];
+					if(koscomShareInfoType == '2'){
+						koscomShareInfoClass = 'up';
+					}else if(koscomShareInfoType == '5'){
+						koscomShareInfoClass = 'down';
+					}
+					
+					if(lang == 'E'){
+						koscomShareSub = data['F16004'];
+					}
+					
+					$('#koscomShareSub').html(koscomShareSub+'(086790)'); //하나금융지주(086790)
+					$('#koscomShareHeader').html(koscomShareSub+'(086790)'); //하나금융지주(086790)
+					$('#koscomSharePrice').html('<strong>' + koscomSharePrice +'</strong> KRW'); //<strong>48,000</strong> KRW
+					$('#koscomPriceHeader').html(koscomSharePrice); //148,000
+					$('#koscomShareInfo').html(koscomShareInfo + '원 ('+ koscomShareInfoPer +'%)'); //+1,750원 (+1.6%)
+					$('#koscomShareInfo').attr('class',koscomShareInfoClass); //상승 시 'up', 하락 시 'down', 변동 없을 시 클래스 없음 (1:상한/2:상승/3:보합/4:하한/5:하락/6:기세상한/7:기세상승/8:기세하한/9:기세하락)
+					$('#koscomInfoHeader').html(koscomShareInfo + '원 ('+ koscomShareInfoPer +'%)'); //+1,750원 (+1.6%)
+					$('#koscomInfoHeader').addClass(koscomShareInfoClass); //상승 시 'up', 하락 시 'down', 변동 없을 시 클래스 없음 (1:상한/2:상승/3:보합/4:하한/5:하락/6:기세상한/7:기세상승/8:기세하한/9:기세하락)
+				}
+			}
+		}, error: function(jqXHR, status, e){
+			console.log('jqXHR ::: ', jqXHR);
+			console.log('status ::: ', status);
+			console.log('e ::: ', e);
+		},
+		
+	});
+}

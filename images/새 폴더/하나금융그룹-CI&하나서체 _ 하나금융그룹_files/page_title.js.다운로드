@@ -1,0 +1,30 @@
+
+	function setTitleText( pageTitle, clearTitle){
+		var setTitleName = $(document).find("title").text();
+		//console.log('setTitleName :: '+setTitleName)
+		if( clearTitle != "" ){
+			setTitleName = setTitleName.replace((' | '+clearTitle), '');
+			setTitleName = setTitleName.replace(clearTitle, '');
+		}
+		setTitleName +=  ' | ' + pageTitle;
+		//console.log('setTitleName :: '+setTitleName)
+		$(document).attr("title",setTitleName); 
+	}
+	
+	//예시 <a href="javascript:;" class="btn-link pop" aria-controls="idxPopupContentView" onclick="editorPopup(this,'objId')">팝업</a>
+	//<div id="objId">html 소스</div>
+	function editorPopup(obj, objId){
+		$("#idxPopupContentData").empty();
+		$("#idxPopupContentData").append($("#"+objId).html());
+		ui.modal(obj);
+	}
+	
+	//예시 <a href="javascript:;" class="btn-link pop" aria-controls="idxPopupCommitteeView" onclick="editorPopup(this,'objId')">팝업</a>
+	//<div id="objId">html 소스</div>
+	function editorPopupCommittee(obj, objId){
+		$("#idxPopupCommitteeData").empty();
+		$("#idxPopupCommitteeData").append($("#"+objId).html());
+		ui.modal(obj);
+	}
+
+////  end 
