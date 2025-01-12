@@ -20,6 +20,6 @@ searchInputEl.addEventListener('blur', function () {
 })
 
 
-//올해가 몇년인지 계산
+/* 올해가 몇년인지 계산 */
 const thisYear = document.querySelector('.this-year')
 thisYear.textContent = new Date().getFullYear()
